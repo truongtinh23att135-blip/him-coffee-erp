@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Giỏ hàng - HIM COFFEE</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<header><div class="wrap nav">
+<a class="logo" href="index.html">☕ HIM COFFEE</a><span class="chip">📍 TP. Vinh, Nghệ An</span>
+<nav class="links"><a href="index.html">Trang chủ</a><a href="index.html#menu">Thực đơn</a><a href="#">Khuyến mãi</a><a href="#">Câu chuyện thương hiệu</a><a href="#footer">Liên hệ</a></nav>
+<button class="cart" aria-label="Giỏ hàng">🛍<b id="cnt">0</b></button></div></header>
+<main class="wrap">
+<div class="crumb"><a href="index.html">← Tiếp tục chọn món</a> / <b>Giỏ hàng thanh toán</b></div>
+<small class="eyebrow">XÁC NHẬN THỰC ĐƠN THỦ CÔNG</small>
+<div class="head"><h2>Giỏ hàng của bạn</h2><span class="pill" id="pill"></span></div>
+<div id="empty" class="emp" hidden><h3>Giỏ hàng đang trống</h3><p class="lead" style="margin:8px auto 18px">Hãy chọn vài món ngon từ thực đơn nhé.</p><a class="btn dark" href="index.html#menu">Xem thực đơn</a></div>
+<div id="full" class="cp"><div>
+<div class="ship">⚡ <b>Giao siêu tốc 15 - 20 phút</b> tại nội thành TP. Vinh. Tặng kèm túi giữ nhiệt &amp; nắp seal chống tràn cao cấp.</div>
+<div id="items"></div>
+<div class="boxes">
+<div class="bx"><b>📍 Ghi chú cho Barista &amp; Tài xế</b><br>Yêu cầu nhiệt độ đá, mang lên phòng làm việc hoặc gọi trước khi tới...<textarea id="note" rows="3" placeholder="Ví dụ: Giao lên tầng 3 toà nhà Vincom, xin thêm ống hút giấy và dĩa riêng..."></textarea></div>
+<div class="bx"><b>🏷 Mã ưu đãi / Khuyến mãi HIM</b><br>Áp dụng mã thành viên hoặc khuyến mãi khai trương tại Vinh.<div class="ap"><input id="code" placeholder="Nhập mã (thử HIMNEW)"><button id="apply">Áp dụng</button></div>
+<p id="applied" hidden style="margin-top:10px"><b>HIMNEW</b> Giảm 15% cho cư dân &amp; bạn mới tại Vinh <button class="lnk" id="unapply">Bỏ</button></p></div></div></div>
+<aside class="sum"><h3>Tóm tắt thanh toán</h3>
+<div class="l"><span id="subl"></span><b id="sub"></b></div>
+<div class="l"><span>Phí giao hàng</span><span><s>16.000đ</s><b>Miễn phí</b></span></div>
+<div class="l" id="offrow"><span>Voucher HIMNEW (-15%)</span><b id="off"></b></div>
+<div class="l"><span><b>Tổng thanh toán</b><br><small>Đã bao gồm VAT &amp; phí bảo quản lạnh</small></span><span class="tot" id="tot"></span></div>
+<button class="go" id="go"></button>
+<small>PHƯƠNG THỨC THANH TOÁN CHẤP NHẬN</small>
+<div class="pay"><span class="on">💵 Tiền mặt COD</span><span>VietQR (sắp có)</span><span>Ví MoMo (sắp có)</span></div></aside></div></main>
+<footer id="footer"><div class="wrap copy"><span>© 2025 HIM COFFEE Roastery. Giữ toàn bộ bản quyền.</span><span>Hotline: 1900 6886</span></div></footer>
+<script src="cart.js"></script></body></html>

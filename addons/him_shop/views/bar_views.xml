@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_him_bar_printer_list" model="ir.ui.view">
+        <field name="name">him.bar.printer.list</field>
+        <field name="model">him.bar.printer</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="category_ids" widget="many2many_tags"/>
+                <field name="copies"/>
+                <field name="auto_print"/>
+                <field name="pending_count"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_him_bar_printer_form" model="ir.ui.view">
+        <field name="name">him.bar.printer.form</field>
+        <field name="model">him.bar.printer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="category_ids" widget="many2many_tags"/>
+                        <field name="copies"/>
+                        <field name="auto_print"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_him_bar_ticket_list" model="ir.ui.view">
+        <field name="name">him.bar.ticket.list</field>
+        <field name="model">him.bar.ticket</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state == 'done'" decoration-info="state == 'new'">
+                <field name="create_date"/>
+                <field name="name"/>
+                <field name="printer_id"/>
+                <field name="channel"/>
+                <field name="customer"/>
+                <field name="state" widget="badge"/>
+                <field name="printed_at"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_him_bar_ticket_form" model="ir.ui.view">
+        <field name="name">him.bar.ticket.form</field>
+        <field name="model">him.bar.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <header><field name="state" widget="statusbar" statusbar_visible="new,printed,done"/></header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="printer_id"/>
+                        <field name="order_id"/>
+                        <field name="channel"/>
+                        <field name="customer"/>
+                        <field name="note"/>
+                        <field name="body"/>
+                        <field name="printed_at"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_him_bar_printer" model="ir.actions.act_window">
+        <field name="name">Máy in ảo</field>
+        <field name="res_model">him.bar.printer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_him_bar_ticket" model="ir.actions.act_window">
+        <field name="name">Phiếu in</field>
+        <field name="res_model">him.bar.ticket</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_him_bar_screen" model="ir.actions.act_url">
+        <field name="name">Màn hình Bar</field>
+        <field name="url">/him/bar</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="menu_him_bar_root" name="Máy in Bar" parent="sale.sale_menu_root" sequence="90"/>
+    <menuitem id="menu_him_bar_screen" parent="menu_him_bar_root" name="Mở màn hình Bar" action="action_him_bar_screen" sequence="1"/>
+    <menuitem id="menu_him_bar_ticket" parent="menu_him_bar_root" name="Phiếu in" action="action_him_bar_ticket" sequence="2"/>
+    <menuitem id="menu_him_bar_printer" parent="menu_him_bar_root" name="Máy in ảo" action="action_him_bar_printer" sequence="3"/>
+</odoo>

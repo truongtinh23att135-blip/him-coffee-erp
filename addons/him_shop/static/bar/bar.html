@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Máy in ảo - Bar | HIM COFFEE</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{font-family:system-ui,sans-serif;background:#1d1411;color:#f3e6d8}
+header{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:14px 20px;background:#2a1812;position:sticky;top:0}
+header b{font-size:18px}header label{font-size:13px}#st{margin-left:auto;font-size:13px;color:#e8b98f}
+header select,header button{border:0;border-radius:8px;padding:7px 10px;font-size:13px;background:#4a2d22;color:#f3e6d8;cursor:pointer}
+a{color:#e8b98f}
+main{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;padding:18px}
+.t{background:#fffaf2;color:#2a1812;border-radius:12px;padding:14px;border-top:6px solid #a9501f}
+.t.p{border-top-color:#6c8e5a}
+.t h3{display:flex;justify-content:space-between;font-size:16px}
+.t small{display:block;color:#7a6b62;margin:2px 0}
+.l{margin:8px 0;padding-top:6px;border-top:1px dashed #d9c8b4}
+.l b{font-size:15px}.l div{font-size:12px;color:#5b4a40}
+.bt{display:flex;gap:8px;margin-top:10px}
+.bt button{flex:1;border:0;border-radius:8px;padding:9px;font-weight:600;cursor:pointer;background:#2a1812;color:#fff}
+.bt button.g{background:#6c8e5a}.bt button.v{background:#a9501f}
+.e{padding:60px;text-align:center;color:#a99685;grid-column:1/-1}
+</style></head><body>
+<header><b>🖨 MÁY IN ẢO · BAR</b>
+<label><input type="checkbox" id="auto" checked> Tự in phiếu mới</label>
+<label>Khổ giấy <select id="paper"><option value="a5">A5 - mẫu hóa đơn</option><option value="80">80mm - gọn</option></select></label>
+<button id="demo">Xem phiếu mẫu</button><span id="st"></span></header>
+<main id="list"></main>
+<script>
+/*PURE-START*/
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+
+function parseOpts(opts) {
+  const parts = String(opts || "").split(" | Ghi chú: ");
+  const out = {size: "", sugar: "", ice: "", tops: [], note: parts.slice(1).join(" | Ghi chú: ")};
+  let inTops = false;
+  for (const t of parts[0].split(", ").map((s) => s.trim()).filter(Boolean)) {
+    if (inTops) { out.tops.push(t); continue; }
+    if (t.startsWith("+")) { inTops = true; out.tops.push(t.replace(/^\+\s*/, "")); }
+    else if (/^size/i.test(t)) out.size = t.replace(/^size\s*/i, "");
+    else if (/ngọt$/i.test(t)) out.sugar = t;
+    else if (/đá/i.test(t)) out.ice = t;
+    else out.note = out.note ? out.note + "; " + t : t;
+  }
+  return out;
+}
+
+const SHOP = {name: "HIM COFFEE", sub: "CÀ PHÊ &amp; TRÀ · TP. VINH, NGHỆ AN",
+  addr: "78 Nguyễn Thị Minh Khai, P. Hưng Bình, TP. Vinh, Nghệ An · Hotline 1900 6886"};
+
+function sheetHTML(t, paper, ids, origin) {
+  const rows = t.lines.map((l) => {
+    const p = parseOpts(l.opts), id = l.pid || ids[l.name];
+    const img = id ? `<img src="${origin}/web/image/product.product/${id}/image_128" alt="">` : "";
+    const sub = [p.sugar, p.ice].filter(Boolean).map(esc).join(" · ");
+    return {l, p, img, sub};
+  });
+  const total = t.lines.reduce((a, l) => a + Number(l.qty || 0), 0);
+  const now = new Date().toLocaleString("vi-VN");
+  if (paper === "80") {
+    return `<html><head><meta charset="utf-8"><style>@page{size:80mm auto;margin:3mm}body{font:13px monospace;width:74mm}
+h2{margin:0;text-align:center}hr{border:0;border-top:1px dashed #000}.l{margin:5px 0}.o{padding-left:8px;font-size:12px}</style></head><body>
+<h2>${esc(t.printer)}</h2><div>Phiếu: <b>${esc(t.name)}</b> · ${esc(t.time)}</div><div>Kênh: ${esc(t.channel)}</div><div>Khách: ${esc(t.customer)}</div><hr>
+${rows.map((r) => `<div class="l"><b>${esc(r.l.qty)} x ${esc(r.l.name)}</b><div class="o">${[r.p.size && "Size " + r.p.size, r.p.sugar, r.p.ice].filter(Boolean).map(esc).join(" · ")}</div>
+${r.p.tops.length ? `<div class="o">+ ${r.p.tops.map(esc).join(", ")}</div>` : ""}${r.p.note ? `<div class="o">Ghi chú: ${esc(r.p.note)}</div>` : ""}</div>`).join("")}
+<hr><div>Tổng: <b>${total}</b> ly</div>${t.note ? `<div>Ghi chú đơn: ${esc(t.note)}</div>` : ""}</body></html>`;
+  }
+  return `<html><head><meta charset="utf-8"><style>
+@page{size:A5 portrait;margin:10mm}
+body{font-family:"Be Vietnam Pro","Segoe UI",Arial,sans-serif;color:#222;margin:0}
+.hd{text-align:center;color:#2f4a22}.hd b{font-size:22px;letter-spacing:2px}
+.hd small{display:block;letter-spacing:3px;font-size:9px;color:#666;margin-top:4px}
+h1{text-align:center;color:#2f4a22;font-size:26px;margin:16px 0 12px;letter-spacing:1px}
+.meta{display:flex;justify-content:space-between;gap:14px;font-size:11px;margin-bottom:12px}
+.meta .l{flex:0 0 38%}.meta .l b{display:block;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.meta .r{flex:1;line-height:1.55}
+table{width:100%;border-collapse:collapse;border-top:2px solid #2f4a22;border-bottom:2px solid #2f4a22;font-size:11px}
+th{padding:6px 4px;border-bottom:1px solid #2f4a22;font-weight:600}
+td{padding:6px 4px;border-bottom:1px solid #d6dfd0;vertical-align:middle}
+td.im{width:46px}img{width:38px;height:38px;object-fit:cover;border-radius:4px;display:block;margin:auto}
+.c{text-align:center}.sub{color:#555;font-size:10px}.nt{font-size:10px;font-style:italic;color:#8a4b1c}
+.sum{text-align:right;margin:10px 0 14px;font-size:12px}.sum b{color:#2f4a22;font-size:15px}
+.ft{display:flex;justify-content:space-between;gap:12px;font-size:10px;border-top:1px solid #2f4a22;padding-top:8px;color:#444}
+</style></head><body>
+<div class="hd"><b>${SHOP.name}</b><small>${SHOP.sub}</small></div>
+<h1>PHIẾU PHA CHẾ</h1>
+<div class="meta"><div class="l"><b>Mã phiếu</b>${esc(t.name)}<b>Kênh</b>${esc(t.channel)}<b>Giờ nhận đơn</b>${esc(t.time)}</div>
+<div class="r"><b>Khách hàng:</b> ${esc(t.customer) || "—"}<br>${t.note ? `<b>Ghi chú đơn:</b> ${esc(t.note)}` : ""}</div></div>
+<table><thead><tr><th>Ảnh</th><th>Món</th><th>Số lượng</th><th>Size</th><th>Phần thêm</th></tr></thead><tbody>
+${rows.map((r) => `<tr><td class="im">${r.img}</td><td><b>${esc(r.l.name)}</b>${r.sub ? `<div class="sub">${r.sub}</div>` : ""}${r.p.note ? `<div class="nt">Ghi chú: ${esc(r.p.note)}</div>` : ""}</td>
+<td class="c">${esc(r.l.qty)}</td><td class="c">${esc(r.p.size) || "—"}</td><td>${r.p.tops.length ? r.p.tops.map(esc).join("<br>") : "—"}</td></tr>`).join("")}
+</tbody></table>
+<div class="sum">Tổng số ly: <b>${total}</b></div>
+<div class="ft"><div><b>${esc(t.printer)}</b><br>In lúc: ${esc(now)}</div><div style="text-align:right">${SHOP.addr}</div></div>
+</body></html>`;
+}
+/*PURE-END*/
+
+const $ = (id) => document.getElementById(id);
+const seen = new Set(); let first = true, tickets = [], menuIds = {};
+$("paper").value = localStorage.getItem("himPaper") || "a5";
+$("paper").onchange = () => localStorage.setItem("himPaper", $("paper").value);
+fetch("/him/menu.json").then((r) => r.json()).then((j) => {
+  (j.result || []).forEach((m) => { menuIds[m.name] = m.id; });
+  render();
+}).catch(() => {});
+
+function beep() {
+  try { const a = new AudioContext(), o = a.createOscillator(); o.connect(a.destination); o.frequency.value = 880; o.start(); setTimeout(() => o.stop(), 250); } catch (e) {}
+}
+const html = (t) => sheetHTML(t, $("paper").value, menuIds, location.origin);
+function mark(id, state) {
+  return fetch("/him/bar/mark", {method: "POST", credentials: "same-origin", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({data: {id, state}})});
+}
+function printTicket(t) {
+  const f = document.createElement("iframe");
+  f.style.cssText = "position:fixed;width:0;height:0;border:0";
+  f.onload = () => { f.contentWindow.focus(); for (let i = 0; i < (t.copies || 1); i++) f.contentWindow.print(); setTimeout(() => f.remove(), 3000); };
+  f.srcdoc = html(t);
+  document.body.appendChild(f);
+  mark(t.id, "printed").then(load);
+}
+function preview(t) {
+  const w = window.open("", "_blank");
+  if (w) { w.document.write(html(t)); w.document.close(); }
+}
+$("demo").onclick = () => preview({
+  id: 0, name: "S00123", printer: "Máy in Bar", channel: "Online", time: "10:30", copies: 1,
+  customer: "Khách Thử Nghiệm - 0912 345 678", note: "Giao tới: 1 Đường Thử, TP. Vinh. Giờ nhận: Giao ngay.",
+  lines: [
+    {name: "Bạc Xỉu", qty: 2, opts: "Size L, 70% ngọt, 100% đá, + Trân Châu Đen, Kem Cheese | Ghi chú: ít đá"},
+    {name: "Cà Phê Muối", qty: 1, opts: "Size M, 100% ngọt, 50% đá"},
+    {name: "Trà Đào Sả", qty: 1, opts: "Size M, 100% ngọt, Không đá, + Thạch Sương Sáo"}]});
+function render() {
+  $("list").innerHTML = tickets.length ? tickets.map((t) => `
+    <div class="t ${t.state === "printed" ? "p" : ""}"><h3><span>${esc(t.name)}</span><span>${esc(t.time)}</span></h3>
+    <small>${esc(t.channel)} · ${esc(t.customer)}</small>
+    ${t.lines.map((l) => { const p = parseOpts(l.opts); return `<div class="l"><b>${esc(l.qty)} x ${esc(l.name)}</b>
+      <div>${[p.size && "Size " + p.size, p.sugar, p.ice].filter(Boolean).map(esc).join(" · ")}</div>
+      ${p.tops.length ? `<div>＋ ${p.tops.map(esc).join(", ")}</div>` : ""}${p.note ? `<div>📝 ${esc(p.note)}</div>` : ""}</div>`; }).join("")}
+    ${t.note ? `<small>📝 ${esc(t.note)}</small>` : ""}
+    <div class="bt"><button class="v" data-v="${t.id}">Xem</button><button data-p="${t.id}">In lại</button><button class="g" data-d="${t.id}">Xong ✓</button></div></div>`).join("")
+    : '<div class="e">Chưa có phiếu nào. Đơn online mới sẽ hiện ở đây.</div>';
+}
+async function load() {
+  try {
+    const r = await fetch("/him/bar/tickets", {credentials: "same-origin"});
+    tickets = (await r.json()).result || [];
+    $("st").textContent = "Cập nhật " + new Date().toLocaleTimeString("vi-VN");
+  } catch (e) {
+    $("st").innerHTML = '⚠ Chưa đăng nhập Odoo? <a href="/web/login?redirect=/him/bar">Đăng nhập</a>';
+    return;
+  }
+  const fresh = tickets.filter((t) => !seen.has(t.id));
+  fresh.forEach((t) => seen.add(t.id));
+  if (fresh.length && !first) beep();
+  first = false;
+  render();
+  if ($("auto").checked) tickets.filter((t) => t.state === "new" && t.auto).forEach(printTicket);
+}
+$("list").onclick = (e) => {
+  const d = e.target.dataset, find = (id) => tickets.find((t) => t.id == id);
+  if (d.p) printTicket(find(d.p));
+  if (d.v) preview(find(d.v));
+  if (d.d) mark(+d.d, "done").then(load);
+};
+load();
+setInterval(load, 5000);
+</script></body></html>

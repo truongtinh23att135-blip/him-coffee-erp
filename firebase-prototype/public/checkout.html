@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Đặt hàng - HIM COFFEE</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<header><div class="wrap nav">
+<a class="logo" href="index.html">☕ HIM COFFEE</a><span class="chip">📍 TP. Vinh, Nghệ An</span>
+<nav class="links"><a href="index.html">Trang chủ</a><a href="index.html#menu">Thực đơn</a><a href="#">Khuyến mãi</a><a href="#">Câu chuyện thương hiệu</a><a href="#footer">Liên hệ</a></nav>
+<button class="cart" aria-label="Giỏ hàng" onclick="location.href='cart.html'">🛍<b id="cnt">0</b></button></div></header>
+<main class="wrap">
+<div class="crumb"><a href="cart.html">← Quay lại Giỏ hàng</a> / <b>Bước 2: Thông tin giao hàng &amp; Xác nhận COD</b></div>
+<div class="co"><div>
+<section class="pn"><small class="eyebrow" style="margin-top:0">GIAO HÀNG TẬN NƠI</small><h2>Thông tin nhận hàng</h2>
+<p class="nt">Vui lòng điền thông tin chính xác để Barista chuẩn bị và Shipper chuyển đồ uống nóng hổi đến bạn.</p>
+<div class="err" id="err" hidden></div>
+<label>Họ và tên người nhận *</label><input id="name" placeholder="Nguyễn Văn An">
+<label>Số điện thoại nhận hàng *</label><input id="phone" inputmode="tel" placeholder="0912 345 678">
+<p class="nt">Shipper HIM COFFEE sẽ liên hệ trước 3-5 phút để giao đồ uống đúng giờ.</p>
+<label>Khu vực / Phường tại TP. Vinh *</label><div class="ch" id="areas"></div>
+<label>Địa chỉ chi tiết lấy giao *</label><input id="addr" placeholder="Tầng 4, Toà nhà Huộc Lộc, 146 Nguyễn Sỹ Sách, P. Hưng Bình, TP. Vinh">
+<label>Thời gian giao hàng</label><div class="two" id="when"></div>
+<input id="time" type="time" hidden style="margin-top:8px" aria-label="Giờ nhận hàng">
+<label>Ghi chú cho quán &amp; Tài xế</label><textarea id="note" rows="3" placeholder="Ví dụ: Giao lên tầng 4, gọi trước khi đến 5 phút, để đá riêng, ít đường..."></textarea></section>
+<section class="pn"><small class="eyebrow" style="margin-top:0">HÌNH THỨC GIAO DỊCH</small><h2>Phương thức thanh toán</h2>
+<div class="cod" style="margin-top:14px"><span style="font-size:26px">💵</span><div><b>Thanh toán khi nhận hàng (COD) ✓</b><p class="nt">Quý khách chỉ thanh toán bằng tiền mặt cho tài xế khi nhận và kiểm tra đủ đồ uống kèm hóa đơn in từ HIM COFFEE.</p></div></div>
+<p class="nt" style="margin-top:12px">🤝 Cam kết hoàn tiền hoặc đổi ly mới 100% nếu đồ uống bị đổ vỡ hoặc không đúng yêu cầu, định lượng ghi chú.</p></section></div>
+<aside class="sum"><small class="eyebrow" style="margin-top:0">TÓM TẮT ĐƠN HÀNG</small>
+<div class="head" style="margin:4px 0"><h3>Giỏ hàng của bạn</h3><span class="pill" id="pill"></span></div>
+<div id="items"></div><hr style="border:0;border-top:1px solid var(--line)">
+<div class="l"><span id="subl"></span><b id="sub"></b></div>
+<div class="l"><span>Phí giao hàng (~2.1km nội thành TP. Vinh)</span><span><s>16.000đ</s><b>Miễn phí</b></span></div>
+<div class="l" id="offrow"><span>Voucher giảm giá HIMNEW</span><b id="off"></b></div>
+<div class="l"><span><b>TỔNG THANH TOÁN COD</b></span><span class="tot" id="tot"></span></div>
+<button class="go" id="go"></button>
+<p class="nt" style="text-align:center">Hotline hỗ trợ nhanh 24/7: <b>1900 6886</b></p></aside></div></main>
+<footer id="footer"><div class="wrap copy"><span>© 2025 HIM COFFEE Roastery. Giữ toàn bộ bản quyền.</span><span>Hotline: 1900 6886</span></div></footer>
+<script src="checkout.js"></script></body></html>

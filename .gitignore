@@ -1,0 +1,29 @@
+# Bí mật: KHÔNG BAO GIỜ đưa lên GitHub
+odoo-api-key*.txt
+.env
+.env.*
+!.env.example
+*.secret*
+.secret.local
+*.pem
+*.key
+# Bản sao lưu cơ sở dữ liệu
+*.sql
+*.dump
+*.sql.gz
+# Sinh ra khi chạy
+node_modules/
+.firebase/
+firebase-debug.log*
+*.log
+__pycache__/
+*.pyc
+*.bak
+*_backup_*
+img_goc/
+# Công cụ và hệ điều hành
+.agents/
+skills-lock.json
+.vscode/
+.idea/
+.DS_Store

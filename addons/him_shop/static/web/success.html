@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Đặt hàng thành công - HIM COFFEE</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<header><div class="wrap nav">
+<a class="logo" href="index.html">☕ HIM COFFEE</a><span class="chip">📍 TP. Vinh, Nghệ An</span>
+<nav class="links"><a href="index.html">Trang chủ</a><a href="index.html#menu">Thực đơn</a><a href="#">Khuyến mãi</a><a href="#">Câu chuyện thương hiệu</a><a href="#footer">Liên hệ</a></nav>
+<button class="cart" aria-label="Giỏ hàng" onclick="location.href='cart.html'">🛍</button></div></header>
+<main class="wrap">
+<div class="cen"><div class="ok">✓</div><small class="eyebrow" style="margin:0">CẢM ƠN BẠN ĐÃ ĐỒNG HÀNH</small>
+<h1>Đặt hàng thành công!</h1>
+<p class="lead" style="margin:0 auto">Cảm ơn bạn đã lựa chọn thưởng thức cà phê và phong vị mộc mạc thủ công tại <b>HIM COFFEE</b>.</p>
+<div class="cd">Mã đơn: <b id="code"></b><button id="copy">Sao chép</button><span id="time"></span></div></div>
+<div class="bn"><span>📞 <b>Xác nhận qua điện thoại</b><br>Quán sẽ liên hệ xác nhận qua số điện thoại <b id="phone"></b> trong vòng 3-5 phút trước khi Barista pha chế và Shipper xuất phát.</span>
+<span class="eta">DỰ KIẾN GIAO HÀNG<br><b id="eta"></b></span></div>
+<div class="sg"><div>
+<section class="pn"><h3>📍 Địa chỉ nhận hàng</h3><p style="margin-top:10px"><b id="name"></b></p><p class="nt" id="addr"></p>
+<div class="nb" id="nbox"><small>LỜI NHẮN BARISTA</small><br><i id="note"></i></div></section>
+<section class="pn"><h3>💵 Thanh toán</h3>
+<div class="l" style="display:flex;justify-content:space-between;margin:12px 0"><span>Hình thức:</span><b>Thanh toán khi nhận hàng (COD)</b></div>
+<div class="l" style="display:flex;justify-content:space-between"><span>Số tiền cần thanh toán:</span><b class="tot" id="pay" style="font-size:20px"></b></div></section></div>
+<section class="pn"><div class="head" style="margin:0"><h3>☕ Món đã chọn</h3><span class="pill" id="pill"></span></div>
+<div id="items"></div>
+<div class="sum" style="position:static;background:var(--cream);padding:14px;margin-top:10px">
+<div class="l"><span id="subl"></span><b id="sub"></b></div>
+<div class="l"><span>Phí giao hàng</span><b>Miễn phí</b></div>
+<div class="l" id="offrow"><span>Voucher thành viên mới (HIMNEW)</span><b id="off"></b></div>
+<div class="l"><b>TỔNG THANH TOÁN (COD)</b><span class="tot" id="tot"></span></div></div>
+<div class="act"><a class="btn dark" href="index.html#menu">Tiếp tục khám phá Menu</a><a class="btn light" href="track.html">Theo dõi đơn</a><button class="btn light" id="print">Lưu hóa đơn</button></div></section></div></main>
+<footer id="footer"><div class="wrap copy"><span>© 2025 HIM COFFEE Roastery. Giữ toàn bộ bản quyền.</span><span>Hotline: 1900 6886</span></div></footer>
+<script src="success.js"></script></body></html>

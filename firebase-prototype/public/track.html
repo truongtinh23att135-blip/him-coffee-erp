@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Theo dõi đơn hàng - HIM COFFEE</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<header><div class="wrap nav">
+<a class="logo" href="index.html">☕ HIM COFFEE</a><span class="chip">📍 TP. Vinh, Nghệ An</span>
+<nav class="links"><a href="index.html">Trang chủ</a><a href="index.html#menu">Thực đơn</a><a href="#">Khuyến mãi</a><a href="#">Câu chuyện thương hiệu</a><a href="#footer">Liên hệ</a></nav>
+<button class="cart" aria-label="Giỏ hàng" onclick="location.href='cart.html'">🛍</button></div></header>
+<main class="wrap">
+<section id="form" class="pn tf"><h2>Theo dõi đơn hàng</h2><p class="nt">Nhập mã đơn và số điện thoại đã đặt hàng.</p>
+<label>Mã đơn (ví dụ S00002)</label><input id="code"><label>Số điện thoại</label><input id="phone" inputmode="tel">
+<button class="go" id="go">Tra cứu</button><p class="nt" id="msg" style="color:#a11"></p></section>
+<div id="res" class="co" hidden><div><section class="pn"><small class="eyebrow" style="margin-top:0">TIẾN ĐỘ THỰC HIỆN MÓN</small>
+<div class="head" style="margin:4px 0"><h2 id="title"></h2><span class="pill" id="pill"></span></div><ul class="tl" id="tl"></ul></section></div>
+<aside class="sum"><h3>Chi tiết món đã chọn</h3><div id="items"></div><p class="nt" id="note"></p><hr style="border:0;border-top:1px solid var(--line)">
+<div class="l"><span>Tạm tính</span><b id="sub"></b></div><div class="l" id="offrow"><span>Giảm giá</span><b id="off"></b></div>
+<div class="l"><b>Tổng thanh toán COD</b><span class="tot" id="tot"></span></div>
+<a class="btn dark" style="display:block;text-align:center" href="index.html#menu">Tiếp tục đặt món khác</a>
+<p class="nt" style="text-align:center;margin-top:10px">Hotline hỗ trợ: <b>1900 6886</b></p></aside></div></main>
+<footer id="footer"><div class="wrap copy"><span>© 2025 HIM COFFEE Roastery. Giữ toàn bộ bản quyền.</span><span>Hotline: 1900 6886</span></div></footer>
+<script src="track.js"></script></body></html>

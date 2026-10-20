@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_him_bar_printer_user,him.bar.printer user,model_him_bar_printer,base.group_user,1,0,0,0
+access_him_bar_printer_admin,him.bar.printer admin,model_him_bar_printer,base.group_system,1,1,1,1
+access_him_bar_ticket_user,him.bar.ticket user,model_him_bar_ticket,base.group_user,1,1,0,0
+access_him_bar_ticket_admin,him.bar.ticket admin,model_him_bar_ticket,base.group_system,1,1,1,1
